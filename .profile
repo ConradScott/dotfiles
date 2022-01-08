@@ -29,7 +29,4 @@ fi
 IGNOREEOF=2
 export IGNOREEOF
 
-# opam configuration
-test -r /home/scottc/.opam/opam-init/init.sh && . /home/scottc/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
 export JAVA_HOME=$(update-java-alternatives -l java-11-amazon-corretto | awk '{print $3}')
