@@ -5,3 +5,5 @@
 	excludesFile = ~/.config/git/ignore
 	autocrlf = input
 	editor = vim
+[push]
+	default = current
