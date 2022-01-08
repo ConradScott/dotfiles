@@ -1,0 +1,7 @@
+[user]
+	email = ConradScott@users.noreply.github.com
+	name = ConradScott
+[core]
+	excludesFile = ~/.config/git/ignore
+	autocrlf = input
+	editor = vim
