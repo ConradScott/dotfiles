@@ -138,29 +138,31 @@ if ! shopt -oq posix; then
   fi
 fi
 
-sshd_status=$(service ssh status)
-if [[ $sshd_status = *"is not running"* ]]; then
-  sudo service ssh --full-restart
-fi
+if [ "${SCOTTC_CONTAINERIZED-false}" != "true" ];
+  sshd_status=$(service ssh status)
+  if [[ $sshd_status = *"is not running"* ]]; then
+    sudo service ssh --full-restart
+  fi
 
-env=~/.ssh/agent.env
+  env=~/.ssh/agent.env
 
-agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+  agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
 
-agent_start () {
-    (umask 077; ssh-agent >| "$env")
-    . "$env" >| /dev/null ; }
+  agent_start () {
+      (umask 077; ssh-agent >| "$env")
+      . "$env" >| /dev/null ; }
 
-agent_load_env
+  agent_load_env
 
-# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
-agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+  # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+  agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
-if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+  if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
     agent_start
     ssh-add ~/.ssh/github_id_ed25519
-elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+  elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
     ssh-add
-fi
+  fi
 
-unset env
+  unset env
+fi
