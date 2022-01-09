@@ -138,7 +138,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ "${SCOTTC_CONTAINERIZED-false}" != "true" ];
+if [ "${SCOTTC_CONTAINERIZED-false}" != "true" ]; then
   sshd_status=$(service ssh status)
   if [[ $sshd_status = *"is not running"* ]]; then
     sudo service ssh --full-restart
