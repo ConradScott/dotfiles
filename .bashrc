@@ -159,9 +159,6 @@ if [ "${SCOTTC_CONTAINERIZED-false}" != "true" ]; then
 
   if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
     agent_start
-    ssh-add ~/.ssh/github_id_ed25519
-  elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    ssh-add
   fi
 
   unset env
