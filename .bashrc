@@ -159,3 +159,5 @@ if [ "${SCOTTC_CONTAINERIZED-false}" != "true" ]; then
 
   unset env
 fi
+
+. "$HOME/.cargo/env"
